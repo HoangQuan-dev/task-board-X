@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: 0 0% 100%; /* Pure white */
+  --color-foreground: 222.2 84% 4.9%; /* Very dark gray */
+  --color-card: 0 0% 100%; /* White cards */
+  --color-card-foreground: 222.2 84% 4.9%;
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 222.2 84% 4.9%;
+  --color-primary: 222.2 47.4% 11.2%;
+  --color-primary-foreground: 210 40% 98%;
+  --color-secondary: 210 40% 96%;
+  --color-secondary-foreground: 222.2 84% 4.9%;
+  --color-muted: 210 40% 96%;
+  --color-muted-foreground: 215.4 16.3% 46.9%;
+  --color-accent: 210 40% 96%;
+  --color-accent-foreground: 222.2 84% 4.9%;
+  --color-destructive: 0 84.2% 60.2%;
+  --color-destructive-foreground: 210 40% 98%;
+  --color-border: 214.3 31.8% 91.4%;
+  --color-input: 214.3 31.8% 91.4%;
+  --color-ring: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+  /* Sidebar (light) */
+  --color-sidebar-background: 0 0% 98%;
+  --color-sidebar-foreground: 222.2 84% 4.9%;
+  --color-sidebar-primary: 222.2 47.4% 11.2%;
+  --color-sidebar-primary-foreground: 210 40% 98%;
+  --color-sidebar-accent: 210 40% 96%;
+  --color-sidebar-accent-foreground: 222.2 84% 4.9%;
+  --color-sidebar-border: 214.3 31.8% 91.4%;
+  --color-sidebar-ring: 222.2 84% 4.9%;
+  /* Task board columns (light) */
+  --color-todo-bg: 220 100% 98%; /* very light blue */
+  --color-todo-border: 220 80% 90%;
+  --color-progress-bg: 48 100% 97%; /* very light yellow */
+  --color-progress-border: 48 80% 90%;
+  --color-review-bg: 291 100% 98%; /* very light purple */
+  --color-review-border: 291 80% 90%;
+  --color-done-bg: 142 76% 96%; /* very light green */
+  --color-done-border: 142 69% 82%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme dark {
+  --color-background: 222.2 84% 4.9%;
+  --color-foreground: 210 40% 98%;
+  --color-card: 222.2 84% 4.9%;
+  --color-card-foreground: 210 40% 98%;
+  --color-popover: 222.2 84% 4.9%;
+  --color-popover-foreground: 210 40% 98%;
+  --color-primary: 210 40% 98%;
+  --color-primary-foreground: 222.2 47.4% 11.2%;
+  --color-secondary: 217.2 32.6% 17.5%;
+  --color-secondary-foreground: 210 40% 98%;
+  --color-muted: 217.2 32.6% 17.5%;
+  --color-muted-foreground: 215 20.2% 65.1%;
+  --color-accent: 217.2 32.6% 17.5%;
+  --color-accent-foreground: 210 40% 98%;
+  --color-destructive: 0 62.8% 30.6%;
+  --color-destructive-foreground: 210 40% 98%;
+  --color-border: 217.2 32.6% 17.5%;
+  --color-input: 217.2 32.6% 17.5%;
+  --color-ring: 212.7 26.8% 83.9%;
+  /* Sidebar (dark) */
+  --color-sidebar-background: 222.2 84% 4.9%;
+  --color-sidebar-foreground: 210 40% 98%;
+  --color-sidebar-primary: 210 40% 98%;
+  --color-sidebar-primary-foreground: 222.2 47.4% 11.2%;
+  --color-sidebar-accent: 217.2 32.6% 17.5%;
+  --color-sidebar-accent-foreground: 210 40% 98%;
+  --color-sidebar-border: 217.2 32.6% 17.5%;
+  --color-sidebar-ring: 212.7 26.8% 83.9%;
+  /* Task board columns (dark) */
+  --color-todo-bg: 222.2 84% 8%;
+  --color-todo-border: 217.2 32.6% 17.5%;
+  --color-progress-bg: 48 100% 12%;
+  --color-progress-border: 48 80% 20%;
+  --color-review-bg: 291 100% 12%;
+  --color-review-border: 291 80% 20%;
+  --color-done-bg: 142 76% 12%;
+  --color-done-border: 142 69% 20%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: hsl(var(--color-border));
+  }
+  body {
+    background-color: hsl(var(--color-background));
+    color: hsl(var(--color-foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--color-border));
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--color-border) / 0.8);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .task-column-todo {
+    background-color: hsl(var(--color-todo-bg));
+    border-color: hsl(var(--color-todo-border));
+    color: hsl(var(--color-foreground));
+  }
+  .task-column-progress {
+    background-color: hsl(var(--color-progress-bg));
+    border-color: hsl(var(--color-progress-border));
+    color: hsl(var(--color-foreground));
+  }
+  .task-column-review {
+    background-color: hsl(var(--color-review-bg));
+    border-color: hsl(var(--color-review-border));
+    color: hsl(var(--color-foreground));
+  }
+  .task-column-done {
+    background-color: hsl(var(--color-done-bg));
+    border-color: hsl(var(--color-done-border));
+    color: hsl(var(--color-foreground));
+  }
+  .animate-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+  .animate-out {
+    animation: fadeOut 0.2s ease-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+  }
+  .dragging {
+    opacity: 0.5;
+    transform: rotate(2deg) scale(1.05);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transition: all 0.2s ease;
+  }
+  .drop-zone-active {
+    ring-width: 2px;
+    ring-color: hsl(var(--color-primary) / 0.5);
+    background-color: hsl(var(--color-primary) / 0.05);
+    transition: all 0.2s ease;
+  }
+  .task-card {
+    transition: all 0.2s ease-out;
+    background-color: hsl(var(--color-card));
+    color: hsl(var(--color-card-foreground));
+  }
+  .task-card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transform: scale(1.02) translateY(-4px);
+  }
+  .skeleton {
+    background-color: hsl(var(--color-muted));
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    border-radius: calc(var(--radius) - 2px);
+  }
+  .text-foreground {
+    color: hsl(var(--color-foreground)) !important;
+  }
+  .text-muted-foreground {
+    color: hsl(var(--color-muted-foreground)) !important;
+  }
+  .bg-background {
+    background-color: hsl(var(--color-background)) !important;
+  }
+  .bg-card {
+    background-color: hsl(var(--color-card)) !important;
+  }
 }
